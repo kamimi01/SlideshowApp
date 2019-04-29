@@ -69,6 +69,7 @@
                         <outlet property="UIImageView" destination="qXI-nY-hGB" id="dez-GW-eju"/>
                         <outlet property="backImage" destination="cTn-7P-HRd" id="5tA-Dj-gvk"/>
                         <outlet property="nextImage" destination="2WC-F6-CMH" id="zSR-eY-pwO"/>
+                        <outlet property="startStop" destination="iHw-sx-aww" id="mu9-eC-hrA"/>
                         <segue destination="RsH-iM-pBb" kind="show" identifier="result" id="QUK-Zb-ony"/>
                     </connections>
                 </viewController>

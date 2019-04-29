@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var UIImageView: UIImageView!
     @IBOutlet weak var backImage: UIButton!
     @IBOutlet weak var nextImage: UIButton!
+    @IBOutlet weak var startStop: UIButton!
     
     //前画面へ戻る
     @IBAction func unwind(_ segue: UIStoryboardSegue){
@@ -81,6 +82,10 @@ class ViewController: UIViewController {
     //次画面への遷移
     @IBAction func onTapImage(_ sender: Any) {
         performSegue(withIdentifier: "result", sender: images[imageIndex])
+        startStop.setTitle("▶︎", for: .normal)
+        //他2つのボタンを有効化
+        backImage.isHidden = false
+        nextImage.isHidden = false
         //timerがnilかどうかの確認を行うことでエラーを解消
         if self.timer != nil{
             //画像を押すとタイマー終了
@@ -114,13 +119,16 @@ class ViewController: UIViewController {
         }else if change == 0{
             //停止ボタンを表示
             print("停止")
-            (sender as AnyObject).setTitle("▶︎", for: .normal)
+            startStop.setTitle("▶︎", for: .normal)
             //他2つのボタンを有効化
             backImage.isHidden = false
             nextImage.isHidden = false
-            //停止ボタンを押すとタイマー終了
-            self.timer.invalidate()
-            self.timer = nil
+            if self.timer != nil{
+                //停止ボタンを押すとタイマー終了
+                self.timer.invalidate()
+                self.timer = nil
+            }
+
         }
         
         
