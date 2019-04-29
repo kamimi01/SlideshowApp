@@ -14,10 +14,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var backImage: UIButton!
     @IBOutlet weak var nextImage: UIButton!
     
-    //次画面への遷移
-    @IBAction func onTapImage(_ sender: Any) {
-        performSegue(withIdentifier: "result", sender: images[imageIndex])
-    }
     //前画面へ戻る
     @IBAction func unwind(_ segue: UIStoryboardSegue){
     }
@@ -82,6 +78,17 @@ class ViewController: UIViewController {
         UIImageView.image = images[imageIndex]
     }
     
+    //次画面への遷移
+    @IBAction func onTapImage(_ sender: Any) {
+        performSegue(withIdentifier: "result", sender: images[imageIndex])
+        //timerがnilかどうかの確認を行うことでエラーを解消
+        if self.timer != nil{
+            //画像を押すとタイマー終了
+            self.timer.invalidate()
+            self.timer = nil
+        }
+    }
+    
     //画像のスライドショーを再開する/停止する
     @IBAction func startStop(_ sender: Any) {
         //ボタンのタップ回数をカウント
@@ -108,7 +115,7 @@ class ViewController: UIViewController {
             //停止ボタンを表示
             print("停止")
             (sender as AnyObject).setTitle("▶︎", for: .normal)
-            //他2つのボタンを有効か
+            //他2つのボタンを有効化
             backImage.isHidden = false
             nextImage.isHidden = false
             //停止ボタンを押すとタイマー終了
