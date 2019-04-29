@@ -79,9 +79,8 @@ class ViewController: UIViewController {
         UIImageView.image = images[imageIndex]
     }
     
-    //次画面への遷移
-    @IBAction func onTapImage(_ sender: Any) {
-        performSegue(withIdentifier: "result", sender: images[imageIndex])
+    //スライドショーを停止する時の関数
+    func suspend(){
         startStop.setTitle("▶︎", for: .normal)
         //他2つのボタンを有効化
         backImage.isHidden = false
@@ -94,6 +93,14 @@ class ViewController: UIViewController {
         }
     }
     
+    //次画面への遷移
+    @IBAction func onTapImage(_ sender: Any) {
+        //tapCount += 1
+        performSegue(withIdentifier: "result", sender: images[imageIndex])
+        //スライドショーの停止を行う関数を呼び出し
+        suspend()
+    }
+    
     //画像のスライドショーを再開する/停止する
     @IBAction func startStop(_ sender: Any) {
         //ボタンのタップ回数をカウント
@@ -103,6 +110,7 @@ class ViewController: UIViewController {
         let change = tapCount % 2
         print(change)
         
+        //カウント回数が奇数の場合
         if change == 1{
             //再生ボタンを表示
             print("再生開始")
@@ -115,19 +123,10 @@ class ViewController: UIViewController {
                 //再生ボタンを押すとタイマー作成、始動
                 self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector (onTimer(_:)), userInfo: nil, repeats: true)
             }
-            
+        //カウント回数が偶数の場合
         }else if change == 0{
-            //停止ボタンを表示
-            print("停止")
-            startStop.setTitle("▶︎", for: .normal)
-            //他2つのボタンを有効化
-            backImage.isHidden = false
-            nextImage.isHidden = false
-            if self.timer != nil{
-                //停止ボタンを押すとタイマー終了
-                self.timer.invalidate()
-                self.timer = nil
-            }
+            //スライドショーの停止を行う関数を呼び出し
+            suspend()
 
         }
         
